@@ -1,3 +1,4 @@
 my-spring-test.iml
 target
 .idea
+mybatis-spring/jdbc.properties
