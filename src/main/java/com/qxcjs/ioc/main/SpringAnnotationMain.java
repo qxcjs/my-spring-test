@@ -1,4 +1,4 @@
-package com.qxcjs.main;
+package com.qxcjs.ioc.main;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

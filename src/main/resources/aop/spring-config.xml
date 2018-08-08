@@ -10,11 +10,11 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="com.qxcjs.aop.annotation"/>
+    <context:component-scan base-package="com.qxcjs.aop.config"/>
 
-    <bean id="logInterceptor" class="com.qxcjs.aop.annotation.LogInterceptor"></bean>
+    <bean id="logInterceptor" class="com.qxcjs.aop.config.LogInterceptor"></bean>
     <aop:config>
-        <aop:pointcut expression="execution(public * com.qxcjs.aop.annotation.service..*.add(..))" id="servicePointcut"/>
+        <aop:pointcut expression="execution(public * com.qxcjs.aop.config.service..*.add(..))" id="servicePointcut"/>
         <aop:aspect id="logAspect" ref="logInterceptor">
             <aop:before method="before"  pointcut-ref="servicePointcut" />
             <aop:after method="after"  pointcut-ref="servicePointcut" />

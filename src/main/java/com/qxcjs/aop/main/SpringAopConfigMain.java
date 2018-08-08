@@ -1,7 +1,7 @@
 package com.qxcjs.aop.main;
 
-import com.qxcjs.aop.annotation.User;
-import com.qxcjs.aop.annotation.service.UserService;
+import com.qxcjs.aop.config.User;
+import com.qxcjs.aop.config.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
