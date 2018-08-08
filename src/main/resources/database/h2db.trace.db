@@ -1,0 +1,3 @@
+2018-08-08 14:19:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "STUDENT" already exists; SQL statement:
+create table student ( id integer not null, name varchar(255) not null, password varchar(255) not null, primary key(id) ) [42101-196]

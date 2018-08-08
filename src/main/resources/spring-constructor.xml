@@ -5,14 +5,15 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 构造函数注入 -->
+    <bean id="school" class="com.qxcjs.ioc.constructor.School">
+        <property name="name" value="仙桃市第十一中学"/>
+        <property name="address" value="仙桃市工业园区"/>
+    </bean>
+
     <bean id="student" class="com.qxcjs.ioc.constructor.Student">
         <constructor-arg type="java.lang.String" value="liss"/>
         <constructor-arg value="1"/>
         <constructor-arg type="com.qxcjs.ioc.constructor.School" ref="school"/>
     </bean>
 
-    <bean id="school" class="com.qxcjs.ioc.constructor.School">
-        <property name="name" value="仙桃市第十一中学"/>
-        <property name="address" value="仙桃市工业园区"/>
-    </bean>
 </beans>

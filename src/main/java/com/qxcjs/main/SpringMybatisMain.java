@@ -1,17 +1,23 @@
 package com.qxcjs.main;
 
-import com.qxcjs.mybatis.domain.TableDependInfo;
-import com.qxcjs.mybatis.service.TableDependInfoService;
+import com.qxcjs.mybatis.domain.Student;
+import com.qxcjs.mybatis.service.StudentService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringMybatisMain {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"mybatis-spring/spring.xml"});
-//        Object service = context.getBean("tableDependInfoMapper");
-//        System.out.println(service);
-        TableDependInfoService service = (TableDependInfoService)context.getBean("tableDependInfoServiceImpl");
-        TableDependInfo key = service.selectByPrimaryKey(1);
-        System.out.println(key.toString());
+        StudentService service = (StudentService)context.getBean("studentServiceImpl");
+        Student student = service.selectUserByID(10001);
+        System.out.println(student.toString());
+        student.setName("liss");
+        try{
+            service.updateUser(student);
+        }catch ( Exception e){
+
+        }
+        System.out.println(service.selectUserByID(10001));
+
     }
 }

@@ -3,14 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
     <context:component-scan base-package="com.qxcjs.mybatis.service"/>
+
+    <!--<jdbc:embedded-database id="dataSource" generate-name="true" database-name="h2db" type="H2">-->
+        <!--<jdbc:script location="classpath:db/sql/h2type.sql"/>-->
+        <!--<jdbc:script location="classpath:db/sql/schema.sql"/>-->
+        <!--<jdbc:script location="classpath:db/sql/data.sql"/>-->
+    <!--</jdbc:embedded-database>-->
 
     <!-- 加载classpath下的db.properties文件，里面配了数据库连接的一些信息 -->
     <context:property-placeholder location="classpath:mybatis-spring/jdbc.properties"/>
@@ -23,10 +35,16 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
 
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+        <jdbc:script location="classpath:db/sql/h2type.sql"/>
+        <jdbc:script location="classpath:db/sql/schema.sql"/>
+        <jdbc:script location="classpath:db/sql/data.sql"/>
+    </jdbc:initialize-database>
+
     <!-- 配置sqlSessionFactory，SqlSessionFactoryBean是用来产生sqlSessionFactory的 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 加载mybatis的全局配置文件，放在classpath下的mybatis文件夹中了 -->
-        <property name="configLocation" value="mybatis-spring/SqlMapConfig.xml" />
+        <property name="mapperLocations" value="mybatis-spring/*Mapper.xml" />
         <!-- 加载数据源，使用上面配置好的数据源 -->
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -35,5 +53,11 @@
         <property name="basePackage" value="com.qxcjs.mybatis.dao"></property>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
+
+    <bean id="appTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven proxy-target-class="false" transaction-manager="appTransactionManager" />
 
 </beans>
