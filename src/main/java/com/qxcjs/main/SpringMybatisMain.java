@@ -5,6 +5,9 @@ import com.qxcjs.mybatis.service.StudentService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class SpringMybatisMain {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"mybatis-spring/spring.xml"});
@@ -19,5 +22,10 @@ public class SpringMybatisMain {
         }
         System.out.println(service.selectUserByID(10001));
 
+        List<Student> students = service.queryStudentPage();
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("result",students);
+        System.out.println(map.toString());
+        System.out.println(students.size());
     }
 }

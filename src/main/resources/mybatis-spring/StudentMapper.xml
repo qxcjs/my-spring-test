@@ -6,6 +6,10 @@
       select * from student where id=#{id}
     </select>
 
+    <select id="selectStudentPage" resultType="com.qxcjs.mybatis.domain.Student">
+      select * from student
+    </select>
+
     <update id="updateUser" parameterType="com.qxcjs.mybatis.domain.Student">
         update student
         <set>

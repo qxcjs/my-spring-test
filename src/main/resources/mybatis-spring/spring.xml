@@ -47,6 +47,19 @@
         <property name="mapperLocations" value="mybatis-spring/*Mapper.xml" />
         <!-- 加载数据源，使用上面配置好的数据源 -->
         <property name="dataSource" ref="dataSource" />
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            pageSizeZero=true
+                            <!--reasonable=true-->
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -54,10 +67,10 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
-    <bean id="appTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+    <!--<bean id="appTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+    <!--</bean>-->
 
-    <tx:annotation-driven proxy-target-class="false" transaction-manager="appTransactionManager" />
+    <!--<tx:annotation-driven proxy-target-class="false" transaction-manager="appTransactionManager" />-->
 
 </beans>
